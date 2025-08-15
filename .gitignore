@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual envs
+.venv/
+venv/
+ENV/
+
+# Local config
+.env
+.env.*
+
+# FastAPI runtime dirs (kept locally, not committed)
+uploads/
+outputs/
+temp/
+
+# Audio artifacts
+*.mp3
+*.wav
+*.m4a
+*.ogg
+*.flac
+
+# Node/Vite
+agricultural-audio-app/node_modules/
+agricultural-audio-app/.vite*/
+agricultural-audio-app/dist/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
