@@ -1,69 +1,101 @@
-# Agricultural Audio Assistant
+# Agricultural Audio Assistant 🌾
 
-An AI-powered agricultural advice system designed for Senegalese farmers. This application allows farmers to upload audio recordings of their questions and receive personalized agricultural recommendations in audio format.
+An AI-powered agricultural advice system designed for Senegalese farmers. Upload audio questions and receive personalized agricultural recommendations in audio format.
 
-## Features
+## ✨ Features
 
-- **Audio Upload**: Accepts various audio formats (WAV, MP3, M4A, OGG, FLAC)
-- **Speech-to-Text**: Transcribes farmer questions using OpenAI's Whisper API
-- **AI Recommendations**: Generates personalized agricultural advice using GPT-3.5-turbo
-- **Text-to-Speech**: Converts recommendations back to audio for easy consumption
-- **Multi-language Support**: Supports multiple languages for transcription
-- **Automatic Cleanup**: Removes old files to manage disk space
+- 🎤 **Audio Upload** - Supports WAV, MP3, M4A, OGG, FLAC
+- 🗣️ **Speech-to-Text** - OpenAI Whisper API transcription
+- 🤖 **AI Recommendations** - GPT-3.5-turbo powered advice
+- 🔊 **Text-to-Speech** - Audio responses for easy consumption
+- 🌍 **Multi-language** - Support for multiple languages
+- 🧹 **Auto Cleanup** - Automatic file management
 
-## Prerequisites
+## 🚀 Quick Start
 
+### Prerequisites
 - Python 3.8+
 - OpenAI API key
-- Node.js 16+ (for the frontend)
+- Node.js 16+ (for frontend)
 
-## Installation
+### Installation
 
-1. **Clone the repository**
+1. **Clone & Setup**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/yourusername/agricultural-audio-assistant.git
    cd agricultural-audio-assistant
    ```
 
-2. **Set up Python environment**
+2. **Python Environment**
    ```bash
-   # Create virtual environment
    python -m venv venv
-   
-   # Activate virtual environment
-   # On Windows:
-   venv\Scripts\activate
-   # On macOS/Linux:
-   source venv/bin/activate
-   
-   # Install dependencies
+   venv\Scripts\activate  # Windows
+   # source venv/bin/activate  # macOS/Linux
    pip install -r requirements.txt
    ```
 
-3. **Configure environment variables**
+3. **Configuration**
    ```bash
-   # Copy the example environment file
    cp env.example .env
-   
    # Edit .env and add your OpenAI API key
-   # Get your API key from: https://platform.openai.com/api-keys
    ```
 
-4. **Set up the frontend (optional)**
+4. **Frontend (Optional)**
    ```bash
    cd agricultural-audio-app
    npm install
    ```
 
-## Configuration
+## 🏃‍♂️ Running
+
+### Backend
+```bash
+python main.py
+# API available at http://127.0.0.1:8000
+```
+
+### Frontend
+```bash
+cd agricultural-audio-app
+npm run dev
+# Available at http://localhost:5173
+```
+
+## 📡 API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/recommend-from-audio` | POST | Upload audio for advice |
+| `/download-audio/{filename}` | GET | Download response audio |
+| `/health` | GET | Health check |
+| `/` | GET | API info |
+
+### Example Request
+```bash
+curl -X POST "http://127.0.0.1:8000/recommend-from-audio" \
+  -H "accept: application/json" \
+  -H "Content-Type: multipart/form-data" \
+  -F "audio_file=@question.wav"
+```
+
+## 🏗️ Project Structure
+
+```
+├── main.py                    # FastAPI backend
+├── requirements.txt           # Python dependencies
+├── env.example               # Environment template
+├── uploads/                  # User audio files
+├── outputs/                  # Generated responses
+├── temp/                     # Processing files
+└── agricultural-audio-app/   # React frontend
+```
+
+## 🔧 Configuration
 
 ### Environment Variables
-
-Create a `.env` file in the root directory with the following variables:
-
 ```env
 # Required
-OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_API_KEY=your_api_key_here
 
 # Optional
 HOST=127.0.0.1
@@ -71,110 +103,37 @@ PORT=8000
 LOG_LEVEL=INFO
 ```
 
-### API Key Setup
+## 🤝 Contributing
 
-1. Visit [OpenAI Platform](https://platform.openai.com/api-keys)
-2. Create a new API key
-3. Add it to your `.env` file
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## Usage
+### Development Guidelines
+- Follow PEP 8 for Python code
+- Use meaningful commit messages
+- Test your changes before submitting
+- Update documentation as needed
 
-### Running the Backend
+## 📝 License
 
-```bash
-# From the root directory
-python main.py
-```
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-The API will be available at `http://127.0.0.1:8000`
+## 🆘 Support
 
-### Running the Frontend
+- 📧 **Issues**: [GitHub Issues](https://github.com/yourusername/agricultural-audio-assistant/issues)
+- 📖 **Documentation**: Check the API docs at `/docs` when running locally
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/yourusername/agricultural-audio-assistant/discussions)
 
-```bash
-# From the agricultural-audio-app directory
-cd agricultural-audio-app
-npm run dev
-```
+## 🙏 Acknowledgments
 
-The frontend will be available at `http://localhost:5173`
+- OpenAI for Whisper and GPT APIs
+- FastAPI for the web framework
+- React/Vite for the frontend
+- Senegalese farmers for inspiration
 
-## API Endpoints
+---
 
-### POST `/recommend-from-audio`
-Upload an audio file to get agricultural advice.
-
-**Parameters:**
-- `audio_file`: Audio file (WAV, MP3, M4A, OGG, FLAC)
-- `language`: Language code for transcription (default: "en")
-
-**Response:**
-```json
-{
-  "success": true,
-  "request_id": "abc123",
-  "transcribed_query": "How do I prepare my soil for planting?",
-  "recommendation": "Well, you know... that's a really good question about soil preparation...",
-  "audio_download_url": "/download-audio/response_abc123.mp3",
-  "audio_filename": "response_abc123.mp3"
-}
-```
-
-### GET `/download-audio/{filename}`
-Download the generated audio response.
-
-### GET `/health`
-Health check endpoint.
-
-### GET `/`
-API information and available endpoints.
-
-## Project Structure
-
-```
-├── main.py                 # FastAPI backend server
-├── requirements.txt        # Python dependencies
-├── env.example            # Environment variables template
-├── .gitignore             # Git ignore rules
-├── uploads/               # Uploaded audio files
-├── outputs/               # Generated audio responses
-├── temp/                  # Temporary processing files
-└── agricultural-audio-app/ # React frontend
-    ├── src/
-    ├── package.json
-    └── ...
-```
-
-## Security Notes
-
-- Never commit your `.env` file to version control
-- The `.env` file is already in `.gitignore`
-- API keys are loaded from environment variables only
-- Temporary files are automatically cleaned up after 1 hour
-
-## Development
-
-### Adding New Features
-
-1. The backend uses FastAPI for easy API development
-2. Audio processing is handled asynchronously
-3. File cleanup runs automatically every 30 minutes
-4. CORS is enabled for frontend integration
-
-### Testing
-
-```bash
-# Test the API endpoints
-python test_request.py
-```
-
-## License
-
-[Add your license here]
-
-## Contributing
-
-[Add contribution guidelines here]
-
-## Support
-
-For issues and questions, please open an issue on GitHub.
+⭐ **Star this repository if you find it helpful!**
